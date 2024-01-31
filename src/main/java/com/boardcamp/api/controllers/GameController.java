@@ -29,6 +29,12 @@ public class GameController {
         this.gameService = gameService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<GameModel>> getGames() {
+        List<GameModel> games = gameService.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(games);
+    }
+
     @PostMapping
     public ResponseEntity<Object> createGame(@RequestBody @Valid GameDTO body) {
         Optional<GameModel> game = gameService.save(body);

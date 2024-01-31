@@ -17,6 +17,10 @@ public class GameService {
         this.gameRepository = gameRepository;
     }
 
+    public List<GameModel> findAll() {
+        return gameRepository.findAll();
+    }
+
     public Optional<GameModel> save(GameDTO dto) {
         if (gameRepository.existsByName(dto.getName()))
             return Optional.empty();
