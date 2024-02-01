@@ -16,6 +16,10 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
+    public Optional<CustomerModel> findById(Long id) {
+        return customerRepository.findById(id);
+    }
+
     public Optional<CustomerModel> save(CustomerDTO dto) {
         if (customerRepository.existsByCpf(dto.getCpf()))
             return Optional.empty();
