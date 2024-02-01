@@ -44,8 +44,4 @@ public class GameController {
         
         return ResponseEntity.status(HttpStatus.CREATED).body(game);
     }
-    
-    public String getGame() {
-        return "Games";
-    }
 }
