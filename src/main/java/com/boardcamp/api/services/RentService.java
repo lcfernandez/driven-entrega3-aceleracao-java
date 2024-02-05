@@ -1,5 +1,7 @@
 package com.boardcamp.api.services;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +31,15 @@ public class RentService {
         return rentRepository.findAll();
     }
 
+    public Optional<RentModel> findById(Long id) {
+        Optional<RentModel> rent = rentRepository.findById(id);
+
+        if (!rent.isPresent())
+            return Optional.empty();
+
+        return rent;
+    }
+
     public Optional<RentModel> save(RentDTO dto) {
         Optional<CustomerModel> customer = customerRepository.findById(dto.getCustomerId());
 
@@ -47,5 +58,18 @@ public class RentService {
         
         RentModel rent = new RentModel(dto, customer.get(), game.get());
         return Optional.of(rentRepository.save(rent));
+    }
+
+    public RentModel update(RentModel rent) {
+        rent.setReturnDate(LocalDate.now());
+
+        LocalDate expectedReturnDate = rent.getRentDate().plusDays(rent.getDaysRented());
+
+        if (rent.getReturnDate().isAfter(expectedReturnDate)) {
+            Long extraDays = expectedReturnDate.until(rent.getReturnDate(), ChronoUnit.DAYS);
+            rent.setDelayFee(extraDays * (rent.getOriginalPrice() / rent.getDaysRented()));
+        }
+
+        return rentRepository.save(rent);
     }
 }
