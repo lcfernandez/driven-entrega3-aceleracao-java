@@ -2,7 +2,6 @@ package com.boardcamp.api.models;
 
 import java.time.LocalDate;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.boardcamp.api.dtos.RentDTO;
