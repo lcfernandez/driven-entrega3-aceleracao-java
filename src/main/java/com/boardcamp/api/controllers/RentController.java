@@ -1,0 +1,36 @@
+package com.boardcamp.api.controllers;
+
+import java.util.Optional;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.boardcamp.api.dtos.RentDTO;
+import com.boardcamp.api.models.RentModel;
+import com.boardcamp.api.services.RentService;
+
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/rentals")
+public class RentController {
+    final RentService rentService;
+
+    RentController(RentService rentService) {
+        this.rentService = rentService;
+    }
+
+    @PostMapping
+    public ResponseEntity<Object> createRent(@RequestBody @Valid RentDTO body) {
+        Optional<RentModel> rent = rentService.save(body);
+
+        if (!rent.isPresent())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(rent);
+    }
+}
