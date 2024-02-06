@@ -27,12 +27,8 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getGame(@PathVariable Long id) {
-        Optional<CustomerModel> customer = customerService.findById(id);
-
-        if (!customer.isPresent())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("This id doesn't exist");
-
+    public ResponseEntity<CustomerModel> getGame(@PathVariable Long id) {
+        CustomerModel customer = customerService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(customer);
     }
 
