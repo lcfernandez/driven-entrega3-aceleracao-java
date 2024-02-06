@@ -7,13 +7,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptionsHandler {
+    // Game
     @ExceptionHandler({ GameNameConflictException.class })
     public ResponseEntity<String> handleGameNameConflict(GameNameConflictException exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     }
 
+    // Customer
     @ExceptionHandler({ CustomerNotFoundException.class})
     public ResponseEntity<String> handleCustomerNotFound(CustomerNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+
+    @ExceptionHandler({ CustomerCpfConflictException.class})
+    public ResponseEntity<String> handleCustomerCpfConflict(CustomerCpfConflictException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     }
 }
