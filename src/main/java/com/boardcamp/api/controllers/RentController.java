@@ -1,7 +1,6 @@
 package com.boardcamp.api.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,25 +34,14 @@ public class RentController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createRent(@RequestBody @Valid RentDTO body) {
-        Optional<RentModel> rent = rentService.save(body);
-
-        if (!rent.isPresent())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
+    public ResponseEntity<RentModel> createRent(@RequestBody @Valid RentDTO body) {
+        RentModel rent = rentService.save(body);
         return ResponseEntity.status(HttpStatus.CREATED).body(rent);
     }
 
     @PutMapping("/{id}/return")
-    public ResponseEntity<Object> updateRent(@PathVariable("id") Long id) {
-        Optional<RentModel> rent = rentService.findById(id);
-
-        if (!rent.isPresent())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        
-        if (rent.get().getReturnDate() != null)
-            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
-        
-        return ResponseEntity.status(HttpStatus.OK).body(rentService.update(rent.get()));
+    public ResponseEntity<RentModel> updateRent(@PathVariable("id") Long id) {
+        RentModel rent = rentService.update(id);
+        return ResponseEntity.status(HttpStatus.OK).body(rent);
     }
 }

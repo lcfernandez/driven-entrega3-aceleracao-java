@@ -3,11 +3,15 @@ package com.boardcamp.api.services;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.boardcamp.api.dtos.RentDTO;
+import com.boardcamp.api.exceptions.CustomerNotFoundException;
+import com.boardcamp.api.exceptions.GameNotAvailableException;
+import com.boardcamp.api.exceptions.GameNotFoundException;
+import com.boardcamp.api.exceptions.RentAlreadyFinalizedException;
+import com.boardcamp.api.exceptions.RentNotFoundException;
 import com.boardcamp.api.models.CustomerModel;
 import com.boardcamp.api.models.GameModel;
 import com.boardcamp.api.models.RentModel;
@@ -31,36 +35,32 @@ public class RentService {
         return rentRepository.findAll();
     }
 
-    public Optional<RentModel> findById(Long id) {
-        Optional<RentModel> rent = rentRepository.findById(id);
+    public RentModel save(RentDTO dto) {
+        CustomerModel customer = customerRepository.findById(dto.getCustomerId()).orElseThrow(
+            () -> new CustomerNotFoundException("Customer not found for this id")
+        );
 
-        if (!rent.isPresent())
-            return Optional.empty();
+        GameModel game = gameRepository.findById(dto.getGameId()).orElseThrow(
+            () -> new GameNotFoundException("Game not found for this id")
+        );
 
-        return rent;
+        int gameRentalsQtd = rentRepository.countByAvaiableGameId(game.getId());
+
+        if (gameRentalsQtd == game.getStockTotal())
+            throw new GameNotAvailableException("This game is not available");
+        
+        RentModel rent = new RentModel(dto, customer, game);
+        return rentRepository.save(rent);
     }
 
-    public Optional<RentModel> save(RentDTO dto) {
-        Optional<CustomerModel> customer = customerRepository.findById(dto.getCustomerId());
+    public RentModel update(Long id) {
+        RentModel rent = rentRepository.findById(id).orElseThrow(
+            () -> new RentNotFoundException("Rent not found for this id")
+        );
 
-        if (!customer.isPresent())
-            return Optional.empty();
+        if (rent.getReturnDate() != null)
+            throw new RentAlreadyFinalizedException("This rent was already finalized");
 
-        Optional<GameModel> game = gameRepository.findById(dto.getGameId());
-        
-        if (!game.isPresent())
-            return Optional.empty();
-
-        int gameRentalsQtd = rentRepository.countByAvaiableGameId(game.get().getId());
-
-        if (gameRentalsQtd == game.get().getStockTotal())
-            return Optional.empty();
-        
-        RentModel rent = new RentModel(dto, customer.get(), game.get());
-        return Optional.of(rentRepository.save(rent));
-    }
-
-    public RentModel update(RentModel rent) {
         rent.setReturnDate(LocalDate.now());
 
         LocalDate expectedReturnDate = rent.getRentDate().plusDays(rent.getDaysRented());
