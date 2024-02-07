@@ -25,7 +25,7 @@ public class CustomerModel {
     @Column(nullable = false)
     private String name;
 
-    @Column(length = 11, nullable = false)
+    @Column(length = 11, nullable = false, unique = true)
     private String cpf;
 
     public CustomerModel(CustomerDTO dto) {
