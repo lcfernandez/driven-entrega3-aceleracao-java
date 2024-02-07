@@ -10,7 +10,7 @@ import com.boardcamp.api.dtos.RentDTO;
 import com.boardcamp.api.exceptions.CustomerNotFoundException;
 import com.boardcamp.api.exceptions.GameNotAvailableException;
 import com.boardcamp.api.exceptions.GameNotFoundException;
-import com.boardcamp.api.exceptions.RentAlreadyFinalizedException;
+import com.boardcamp.api.exceptions.RentAlreadyFinishedException;
 import com.boardcamp.api.exceptions.RentNotFoundException;
 import com.boardcamp.api.models.CustomerModel;
 import com.boardcamp.api.models.GameModel;
@@ -44,7 +44,7 @@ public class RentService {
             () -> new GameNotFoundException("Game not found for this id")
         );
 
-        int gameRentalsQtd = rentRepository.countByAvaiableGameId(game.getId());
+        int gameRentalsQtd = rentRepository.countUnfinishedRentalsByGameId(game.getId());
 
         if (gameRentalsQtd == game.getStockTotal())
             throw new GameNotAvailableException("This game is not available");
@@ -59,7 +59,7 @@ public class RentService {
         );
 
         if (rent.getReturnDate() != null)
-            throw new RentAlreadyFinalizedException("This rent was already finalized");
+            throw new RentAlreadyFinishedException("This rent was already finished");
 
         rent.setReturnDate(LocalDate.now());
 

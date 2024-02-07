@@ -35,8 +35,8 @@ public class GlobalExceptionsHandler {
     }
 
     // Rent
-    @ExceptionHandler({ RentAlreadyFinalizedException.class })
-    public ResponseEntity<String> handleRentAlreadyFinalized(RentAlreadyFinalizedException exception) {
+    @ExceptionHandler({ RentAlreadyFinishedException.class })
+    public ResponseEntity<String> handleRentAlreadyFinished(RentAlreadyFinishedException exception) {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(exception.getMessage());
     }
 
