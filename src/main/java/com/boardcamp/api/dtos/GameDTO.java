@@ -13,10 +13,10 @@ public class GameDTO {
     private String image;
 
     @NotNull(message = "Field 'stockTotal' is mandatory")
-    @Positive
-    private int stockTotal;
+    @Positive(message = "'stockTotal' must be greater than 0")
+    private Integer stockTotal;
 
     @NotNull(message = "Field 'pricePerDay' is mandatory")
-    @Positive
-    private int pricePerDay;
+    @Positive(message = "'pricePerDay' must be greater than 0")
+    private Integer pricePerDay;
 }

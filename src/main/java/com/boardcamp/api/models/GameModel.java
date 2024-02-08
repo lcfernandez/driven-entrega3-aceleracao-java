@@ -30,11 +30,11 @@ public class GameModel {
     private String image;
 
     @Column(nullable = false)
-    @Min(value = 0)
+    @Min(value = 1)
     private int stockTotal;
 
     @Column(nullable = false)
-    @Min(value = 0)
+    @Min(value = 1)
     private int pricePerDay;
 
     public GameModel(GameDTO dto) {
