@@ -16,5 +16,5 @@ public class RentDTO {
 
     @NotNull(message = "Field 'daysRentend' is mandatory")
     @Positive(message = "'daysRented' must be greater than 0")
-    private int daysRented;
+    private Integer daysRented;
 }
