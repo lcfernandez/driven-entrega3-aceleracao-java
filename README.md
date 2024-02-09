@@ -17,13 +17,13 @@
 
 - Formato de um jogo (tabela `games`)
     
-    ```sql
+    ```jsx
     {
-        id: 1,
-        name: 'Banco Imobiliário',
-        image: 'http://',
-        stockTotal: 3,
-        pricePerDay: 1500
+        "id": 1,
+        "name": "Banco Imobiliário",
+        "image": "http://",
+        "stockTotal": 3,
+        "pricePerDay": 1500
     }
     ```
     
@@ -32,21 +32,21 @@
 
     - **Response:** lista dos jogos encontrados, seguindo o formato abaixo e status `200 (OK)`.
         
-        ```sql
+        ```jsx
         [
             {
-                id: 1,
-                name: 'Banco Imobiliário',
-                image: 'http://',
-                stockTotal: 3,
-                pricePerDay: 1500
+                "id": 1,
+                "name": "Banco Imobiliário",
+                "image": "http://",
+                "stockTotal": 3,
+                "pricePerDay": 1500
             },
             {
-                id: 2,
-                name: 'Detetive',
-                image: 'http://',
-                stockTotal: 1,
-                pricePerDay: 2500
+                "id": 2,
+                "name": "Detetive",
+                "image": "http://",
+                "stockTotal": 1,
+                "pricePerDay": 2500
             }
         ]
         ```
@@ -58,22 +58,22 @@
         
         ```jsx
         {
-            name: 'Banco Imobiliário',
-            image: 'http://',
-            stockTotal: 3,
-            pricePerDay: 1500
+            "name": "Banco Imobiliário",
+            "image": "http://",
+            "stockTotal": 3,
+            "pricePerDay": 1500
         }
         ```
         
     - **Response:** status `201 (CREATED)`, retornando o jogo criado completo (com `id`).
         
-        ```sql
+        ```jsx
         {
-            id: 1,
-            name: 'Banco Imobiliário',
-            image: 'http://',
-            stockTotal: 3,
-            pricePerDay: 1500
+            "id": 1,
+            "name": "Banco Imobiliário",
+            "image": "http://",
+            "stockTotal": 3,
+            "pricePerDay": 1500
         }
         ```
         
@@ -87,11 +87,11 @@
 
 - Formato de um cliente (tabela `customers`)
     
-    ```sql
+    ```jsx
     {
-        id: 1,
-        name: 'Frank Moneybags',
-        cpf: '12345678910'
+        "id": 1,
+        "name": "Frank Moneybags",
+        "cpf": "12345678910"
     }
     ```
     
@@ -100,11 +100,11 @@
 
     - **Response:** somente o objeto do usuário com o `id` passado, como mostrado abaixo, e status `200 (OK)`.
         
-        ```sql
+        ```jsx
         {
-            id: 1,
-            name: 'Frank Moneybags',
-            cpf: '12345678910'
+            "id": 1,
+            "name": "Frank Moneybags",
+            "cpf": "12345678910"
         }
         ```
         
@@ -118,18 +118,18 @@
         
         ```jsx
         {
-            name: 'Frank Moneybags',
-            cpf: '12345678910'
+            "name": "Frank Moneybags",
+            "cpf": "12345678910"
         }
         ```
         
     - **Response:** status `201 (CREATED)`, retornando o cliente criado completo (com `id`).
         
-        ```sql
+        ```jsx
         {
-            id: 1,
-            name: 'Frank Moneybags',
-            cpf: '12345678910'
+            "id": 1,
+            "name": "Frank Moneybags",
+            "cpf": "12345678910"
         }
         ```
         
@@ -143,16 +143,16 @@
 
 - Formato de um aluguel (tabela `rentals`)
     
-    ```sql
+    ```jsx
     {
-        id: 1,
-        customerId: 1,
-        gameId: 1,
-        rentDate: '2021-06-20',
-        daysRented: 3,
-        returnDate: null,
-        originalPrice: 4500,
-        delayFee: 0
+        "id": 1,
+        "customerId": 1,
+        "gameId": 1,
+        "rentDate": "2021-06-20",
+        "daysRented": 3,
+        "returnDate": null,
+        "originalPrice": 4500,
+        "delayFee": 0
     }
     ```
 
@@ -168,26 +168,26 @@
 
     - **Response:** lista com todos os aluguéis, contendo o `customer` e o `game` do aluguel em questão em cada aluguel, e status `200 (OK)`.
         
-        ```sql
+        ```jsx
         [
             {
-                id: 1,
-                rentDate: '2021-06-20',
-                daysRented: 3,
-                returnDate: null,
-                originalPrice: 4500,
-                delayFee: 0,
-                customer: {
-                    id: 1,
-                    name: 'Frank Moneybags',
-                    cpf: '12345678910'
+                "id": 1,
+                "rentDate": "2021-06-20",
+                "daysRented": 3,
+                "returnDate": null,
+                "originalPrice": 4500,
+                "delayFee": 0,
+                "customer": {
+                    "id": 1,
+                    "name": "Frank Moneybags",
+                    "cpf": "12345678910"
                 },
-                game: {
-                    id: 1,
-                    name: 'Banco Imobiliário',
-                    image: 'http://',
-                    stockTotal: 3,
-                    pricePerDay: 1500
+                "game": {
+                    "id": 1,
+                    "name": "Banco Imobiliário",
+                    "image": "http://",
+                    "stockTotal": 3,
+                    "pricePerDay": 1500
                 }
             }
         ]
@@ -204,33 +204,33 @@
         
         ```jsx
         {
-            customerId: 1,
-            gameId: 1,
-            daysRented: 3
+            "customerId": 1,
+            "gameId": 1,
+            "daysRented": 3
         }
         ```
         
     - **Response:** status `201 (CREATED)`, retornando o aluguel criado completo (com `id`, `customer` e `game`).
         
-        ```sql
+        ```jsx
         {
-            id: 1,
-            rentDate: '2021-06-20',
-            daysRented: 3,
-            returnDate: null, 
-            originalPrice: 4500,
-            delayFee: 0, 
-            customer: {
-                id: 1,
-                name: 'Frank Moneybags',
-                cpf: '12345678910'
+            "id": 1,
+            "rentDate": "2021-06-20",
+            "daysRented": 3,
+            "returnDate": null, 
+            "originalPrice": 4500,
+            "delayFee": 0, 
+            "customer": {
+                "id": 1,
+                "name": "Frank Moneybags",
+                "cpf": "12345678910"
             },
-            game: {
-                id: 1,
-                name: 'Banco Imobiliário',
-                image: 'http://',
-                stockTotal: 3,
-                pricePerDay: 1500
+            "game": {
+                "id": 1,
+                "name": "Banco Imobiliário",
+                "image": "http://",
+                "stockTotal": 3,
+                "pricePerDay": 1500
             }
         }
         ```
@@ -252,25 +252,25 @@
 
     - **Response:** status `200 (OK)`, retornando o aluguel finalizado completo (com `id`, `customer` e `game`).
         
-        ```sql
+        ```jsx
         {
-            id: 1,
-            rentDate: '2021-06-20',
-            daysRented: 3,
-            returnDate: '2021-06-25', 
-            originalPrice: 4500,
-            delayFee: 3000, 
-            customer: {
-                id: 1,
-                name: 'Frank Moneybags',
-                cpf: '12345678910'
+            "id": 1,
+            "rentDate": "2021-06-20",
+            "daysRented": 3,
+            "returnDate": "2021-06-25", 
+            "originalPrice": 4500,
+            "delayFee": 3000, 
+            "customer": {
+                "id": 1,
+                "name": "Frank Moneybags",
+                "cpf": "12345678910"
             },
-            game: {
-                id: 1,
-                name: 'Banco Imobiliário',
-                image: 'http://',
-                stockTotal: 3,
-                pricePerDay: 1500
+            "game": {
+                "id": 1,
+                "name": "Banco Imobiliário",
+                "image": "http://",
+                "stockTotal": 3,
+                "pricePerDay": 1500
             }
         }
         ```
